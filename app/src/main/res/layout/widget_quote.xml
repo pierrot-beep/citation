@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:gravity="center" android:padding="16dp"
+    android:background="@drawable/widget_background">
+    <TextView android:id="@+id/quote_date" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:textColor="#B8C7D9"
+        android:textSize="11sp" android:gravity="center" android:paddingBottom="8dp" />
+    <TextView android:id="@+id/quote_text" android:layout_width="match_parent"
+        android:layout_height="0dp" android:layout_weight="1"
+        android:text="Une citation inspirante pour commencer la journée."
+        android:textColor="#FFFFFF" android:textSize="16sp" android:textStyle="bold"
+        android:gravity="center" android:maxLines="6" android:ellipsize="end" />
+    <TextView android:id="@+id/quote_author" android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:textColor="#D7E2F0"
+        android:textSize="12sp" android:gravity="end" android:paddingTop="10dp" />
+</LinearLayout>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Citation du jour</string>
+    <string name="widget_description">Une citation inspirante différente chaque jour</string>
+</resources>
