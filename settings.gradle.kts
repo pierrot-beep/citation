@@ -14,3 +14,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CitationDuJour"
 include(":app")
+include(":netflixranking")

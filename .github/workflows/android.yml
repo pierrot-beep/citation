@@ -3,7 +3,7 @@ name: Construire l'APK Android
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [main, 'claude/**']
 
 jobs:
   build:
@@ -23,12 +23,19 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Compiler l'APK
-        run: gradle assembleDebug
+      - name: Compiler les APK et lancer les tests
+        run: gradle assembleDebug :netflixranking:testDebugUnitTest
 
       - name: Publier l'APK à télécharger
         uses: actions/upload-artifact@v4
         with:
           name: CitationDuJour-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+
+      - name: Publier l'APK Netflix selon AlloCiné
+        uses: actions/upload-artifact@v4
+        with:
+          name: NetflixAllocine-APK
+          path: netflixranking/build/outputs/apk/debug/netflixranking-debug.apk
           if-no-files-found: error

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Netflix selon AlloCiné</string>
+    <string name="sort_press">Presse</string>
+    <string name="sort_spectators">Spectateurs</string>
+    <string name="refresh">Mettre à jour</string>
+    <string name="press_note">Presse : %1$s</string>
+    <string name="spectator_note">Spectateurs : %1$s</string>
+    <string name="no_data">Aucune donnée. Appuyez sur « Mettre à jour ».</string>
+    <string name="status">%1$d films · mis à jour le %2$s</string>
+    <string name="loading_page">Chargement de la page %1$d…</string>
+    <string name="loading_page_of">Chargement de la page %1$d / %2$d…</string>
+    <string name="error">Erreur de mise à jour : %1$s</string>
+</resources>
