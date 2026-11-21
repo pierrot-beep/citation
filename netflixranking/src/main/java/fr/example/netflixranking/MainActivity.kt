@@ -40,6 +40,7 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        applySystemBarInsets()
         repository = FilmRepository(applicationContext)
 
         status = findViewById(R.id.status)
@@ -68,6 +69,30 @@ class MainActivity : Activity() {
             render()
             if (snapshot == null) refresh() // premier lancement : rien en cache
         }
+    }
+
+    /**
+     * Android 15+ affiche les apps bord à bord : le contenu passe sous les barres système.
+     * On décale l'en-tête sous la barre d'état et le bas de l'écran au-dessus de la barre de navigation.
+     */
+    private fun applySystemBarInsets() {
+        val root = findViewById<View>(R.id.root)
+        val header = findViewById<View>(R.id.header)
+        val headerTop = header.paddingTop
+        root.setOnApplyWindowInsetsListener { _, insets ->
+            @Suppress("DEPRECATION")
+            val top = insets.systemWindowInsetTop
+            @Suppress("DEPRECATION")
+            val bottom = insets.systemWindowInsetBottom
+            @Suppress("DEPRECATION")
+            val left = insets.systemWindowInsetLeft
+            @Suppress("DEPRECATION")
+            val right = insets.systemWindowInsetRight
+            header.setPadding(header.paddingLeft, headerTop + top, header.paddingRight, header.paddingBottom)
+            root.setPadding(left, 0, right, bottom)
+            insets
+        }
+        root.requestApplyInsets()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

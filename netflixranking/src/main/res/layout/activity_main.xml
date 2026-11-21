@@ -2,7 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root"
     android:orientation="vertical">
+
+    <!-- Barre de titre maison : fond sombre qui passe aussi sous la barre d'état. -->
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212121"
+        android:paddingStart="16dp"
+        android:paddingTop="14dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="14dp"
+        android:text="@string/app_name"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
