@@ -1,28 +1,36 @@
-# Citation du jour — widget Android
+# Radar Alerte — application Android
 
-Widget natif Android écrit en Kotlin, avec 100 citations françaises intégrées.
+Application Android (Kotlin) qui affiche votre position en temps réel sur une carte
+OpenStreetMap et vous avertit quand un **radar fixe** est à moins de **400 m**.
 
 ## Fonctionnalités
-- 100 citations stockées dans le code, utilisables hors ligne.
-- Citation stable pour la journée, commune à tous les widgets.
-- Les citations défilent sur un cycle de 100 jours.
-- Widget redimensionnable avec fond dégradé.
+- Carte OpenStreetMap (bibliothèque osmdroid, aucune clé d'API nécessaire) qui suit votre position GPS.
+- Radars fixes affichés en points rouges (toucher un point affiche sa description).
+- Sous 400 m du radar le plus proche :
+  - bandeau rouge en haut de l'écran avec la distance mise à jour en continu ;
+  - cercle de 400 m dessiné autour du radar ;
+  - annonce vocale « Attention, radar à N mètres » (une fois par radar ; ré-annoncé après s'en être éloigné de plus de 600 m).
+- Écran maintenu allumé pendant l'utilisation.
 
-## Installation
-1. Décompressez le ZIP.
-2. Ouvrez le dossier `CitationDuJour` dans Android Studio.
-3. Synchronisez Gradle (JDK 17 recommandé) et lancez l'application sur un appareil ou un émulateur.
-4. Sur l'écran d'accueil Android, faites un appui long → **Widgets** → **Citation du jour**.
+## Données radars
+Téléchargées depuis data.gouv.fr au premier lancement, puis gardées sur le téléphone
+(mise à jour automatique si le fichier a plus de 30 jours, ou via le bouton **MAJ radars**) :
+1. [Liste des radars fixes en France](https://www.data.gouv.fr/fr/datasets/liste-des-radars-fixes-en-france/) (source principale) ;
+2. [Radars automatiques](https://www.data.gouv.fr/fr/datasets/radars-automatiques/) (secours, plus ancien).
 
-## Remarque
-Android et les lanceurs peuvent différer dans la fréquence de rafraîchissement. Le contenu est recalculé selon la date locale lors de chaque mise à jour du widget. Pour une actualisation quotidienne garantie, on peut ajouter un travail périodique WorkManager, soumis aux règles d'économie d'énergie d'Android.
+L'application prend le fichier CSV le plus récent du jeu de données et détecte elle-même
+le séparateur et les colonnes latitude/longitude.
 
-## Compiler sans Android Studio (via GitHub)
-1. Créez un compte sur https://github.com si nécessaire.
-2. Créez un dépôt vide, par exemple `CitationDuJour`.
-3. Téléversez les fichiers et dossiers de ce projet dans le dépôt (le dossier `.github/workflows` doit aussi être présent à la racine).
-4. Ouvrez l'onglet **Actions**, choisissez **Construire l'APK Android**, puis **Run workflow** si le lancement automatique n'a pas démarré.
-5. Une fois le travail terminé, ouvrez le résultat et téléchargez l'artefact `CitationDuJour-APK`. Il contient `app-debug.apk`.
-6. Transférez l'APK sur le téléphone Android et ouvrez-le pour l'installer. Android peut demander d'autoriser l'installation depuis cette source.
+## Limites
+- Radars **fixes** de France uniquement : pas de radars mobiles, ni de radars de chantier.
+- L'alerte se base sur la distance à vol d'oiseau, sans tenir compte du sens de circulation
+  ni de la route empruntée : un radar sur une route parallèle ou dans l'autre sens déclenche aussi l'alerte.
+- L'alerte fonctionne quand l'application est **au premier plan** (pas de surveillance en arrière-plan).
+- Une connexion Internet est requise pour le premier téléchargement des radars et pour charger les fonds de carte.
 
-Le workflow compile le projet dans les serveurs GitHub : aucun Android Studio ni SDK Android local n'est nécessaire. Le projet doit être envoyé dans un dépôt GitHub, et la compilation doit réussir avant que l'APK soit disponible.
+## Compiler l'APK (GitHub Actions)
+1. Ouvrez l'onglet **Actions** du dépôt, choisissez **Construire l'APK Android**, puis **Run workflow**
+   (le workflow se lance aussi à chaque push sur `main` ou sur une branche `claude/...`).
+2. À la fin, téléchargez l'artefact `RadarAlerte-APK` : il contient `app-debug.apk`.
+3. Transférez l'APK sur le téléphone et ouvrez-le pour l'installer (autorisez l'installation depuis cette source si Android le demande).
+4. Au premier lancement, acceptez la permission de localisation.
